@@ -1,18 +1,26 @@
 
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    text-align: center;
+    padding: 10;
+  }
+
 body {
     font-family:verdana;
+    text-align: center;
     background-image: ;
-    background-color: ;
+    background-color: rgb(184, 217, 238) ; 
 
 }
 
 ul {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 100;
     overflow: hidden;
-    background-color: #004d99;
-    max-width:1357px;
+    background-color: rgb(93, 129, 161);
+    max-width:1300px;
 }
 
 li {
@@ -56,6 +64,11 @@ li.dropdown {
     opacity: .8;
 }
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 td {
     padding: 5px;
     text-align: left;
@@ -64,8 +77,8 @@ td {
 
 tr{
     padding: 0px;
-    text-align: top;
-    background-color:#ffffff
+    text-align: center;
+    background-color:#d7e3e9
 }
 
 img:hover {
