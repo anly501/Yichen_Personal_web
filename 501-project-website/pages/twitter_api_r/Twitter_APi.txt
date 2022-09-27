@@ -1,0 +1,13 @@
+
+Type,Key
+API Key,p2gr3ebVcDBFwYdFmNjbjBY07
+
+API Key Secret,1nxEACmKswKlgkg6GPTjs6Xd7qoCpMEB5xTb1grQw2AamUfMkp
+
+Access Token,1567646951088201728-WNF7qfvZeEjeGIRTEGudgGMdFQOlEz
+
+Access Token Secret,we6udSdTsanZCMucEUcVkJa79VvrIlNPPf2orhjEMq1V2
+
+Bearer Token,AAAAAAAAAAAAAAAAAAAAAElZgwEAAAAAOn8Cli2qcXeDz2jWcoLlgVhS6vo%3D5vf7AHOgrK5p8gSMZfrBWvGVjr5kDEn89KUjifOaNOMb9R9Cbf
+
+
