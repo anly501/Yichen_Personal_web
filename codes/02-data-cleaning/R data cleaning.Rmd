@@ -1,0 +1,45 @@
+---
+title: "Data Cleaning Using R"
+author: "Yichen Guo"
+date: "2022-09-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library('tidyverse')
+library(plyr)
+```
+
+```{r}
+rawdf = read.csv(file = './raw_filter.csv')
+
+str(rawdf)
+
+drops = c("Incident.Datetime","Row.ID","CAD.Number","Report.Type.Code","Incident.Category","ESNCAG...Boundary.File","Central.Market.Tenderloin.Boundary.Polygon...Updated","Civic.Center.Harm.Reduction.Project.Boundary","HSOC.Zones.as.of.2018.06.05","Invest.In.Neighborhoods..IIN..Areas")
+rawdf=rawdf[ , !(names(rawdf) %in% drops)]
+incident_2018 = filter(rawdf, Incident.Year == '2018')
+incident_2019 = filter(rawdf, Incident.Year == '2019')
+incident_2020 = filter(rawdf, Incident.Year == '2020')
+incident_2021 = filter(rawdf, Incident.Year == '2021')
+incident_2022 = filter(rawdf, Incident.Year == '2022')
+
+write.csv(incident_2018,'./incident_2018.csv',row.names = FALSE)
+write.csv(incident_2019,'./incident_2019.csv',row.names = FALSE)
+write.csv(incident_2020,'./incident_2020.csv',row.names = FALSE)
+write.csv(incident_2021,'./incident_2021.csv',row.names = FALSE)
+write.csv(incident_2022,'./incident_2022.csv',row.names = FALSE)
+
+```
+
+
+```{r}
+incidents_year =count(rawdf, 'Incident.Year')
+incidents_day = count(rawdf, 'Incident.Day.of.Week')
+
+```
+
