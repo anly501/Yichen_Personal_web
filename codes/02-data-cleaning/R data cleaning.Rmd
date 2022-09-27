@@ -40,6 +40,6 @@ write.csv(incident_2022,'./incident_2022.csv',row.names = FALSE)
 ```{r}
 incidents_year =count(rawdf, 'Incident.Year')
 incidents_day = count(rawdf, 'Incident.Day.of.Week')
-
+barplot(incidents_year)
 ```
 
