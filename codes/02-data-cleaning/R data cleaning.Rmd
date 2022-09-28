@@ -40,6 +40,18 @@ write.csv(incident_2022,'./incident_2022.csv',row.names = FALSE)
 ```{r}
 incidents_year =count(rawdf, 'Incident.Year')
 incidents_day = count(rawdf, 'Incident.Day.of.Week')
-barplot(incidents_year)
+incidents_day$Incident.Day.of.Week
+str(incidents_day)
+```
+
+
+```{r}
+library(plotly)
+
+fig =plot_ly(data=incidents_day, x = ~Incident.Day.of.Week, y= ~freq)
+fig
+
+fig2 =plot_ly(data=incidents_year, type = 'scatter', mode='lines') %>% add_trace(x = ~Incident.Year, y= ~freq)
+fig2
 ```
 
