@@ -9,13 +9,13 @@
     <body>
         <h1 style="text-align:center ;">Data Cleaning of SF Car-Breakins</h1>
         <hr> 
-        <h2 style="text-align:left; margin-left: 80px;">Data Cleaning Using R</h2>
-        <p style="text-align:left;margin-left: 80px; margin-right: 80px;"> Since of the data source will be the <strong>San Francisco Police Reports</strong> database, this database include all the reported crimes 
+        <h2 style="text-align:left; margin-left: 120px;">Data Cleaning Using R</h2>
+        <p style="text-align:left;margin-left: 120px; margin-right: 120px;"> Since of the data source will be the <strong>San Francisco Police Reports</strong> database, this database include all the reported crimes 
             that happenes since 2018 and larcenry (from vehicle) is one of them, so I filtered the dataset and only focus on larcenry from the vechicle. The original dataset is over 10,000 oberservarions, rich and contain multiple informations such as the date,
             times, and days of the week, which I believe I could utilize these day to get a general trend of crime happening, like year to year comparision and day to day comparision for each day of the week. 
             For now I just dropped the useless columns such as "ESNCAG - Boundary File" and "Central Market/Tenderloin Boundary Polygon - Updated" within the dataset and filter the data by time and years for these incidents.
             <br><br>
-            I will further combine the data with
+            This is just some brief example of my data=cleaning process since there's tons of more works to do and more information to be extract from the datasets. I will further combine the data with
             geo-data of the SF neighberhoods and the geo data(GPS points of incident location) and the according neighberhoods where the incident happends included in the dataset to get a more cleared visisualization of the data for the dataset. 
         </p>
 
@@ -24,24 +24,32 @@
         <center><img src="post_clean_2019.png" alt="post clean Data 2019" style="width:800px;height:350px;"><br></center>
         <center><p> The Data after pre-clean up using R: All the break-ins happenes in 2019.</p></center>
 
-        <ol style="text-align:left; margin-left: 80px; margin-right: 80px;">
+        <ol style="text-align:left; margin-left: 120px; margin-right: 120px;">
             <li>Link to the R clean up code: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/02-data-cleaning"> 02-data-cleaning </a></li>
             <li>Link to the clean up data: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/data"> Github-data </a></li>
           </ol>
 
-        <h2 style="text-align:left; margin-left: 80px;">Text Data Cleaning Using Python:</h2>
-        <p style="text-align:left; margin-left: 80px; margin-right: 80px;"> One of the other data sources will be the <strong>Twitter Tweets</strong>, 
-            I am expecting to use tweets to track and anlyze the trend of car break-ins
-            over time and also using different fields like (location) and (time of the day) to supplement the SF police data source. 
-            There are also accounts that keep tracking of car break-ins around SF, which I beleve will be a great source of information.
+        <h2 style="text-align:left; margin-left: 120px;">Text Data Cleaning Using Python:</h2>
+        <p style="text-align:left; margin-left: 120px; margin-right: 120px;"> One of the other data sources will be the <strong>Twitter Tweets</strong>, people tend to share thier frustration and unfortunate experience online and there are also twitter account specialized in 
+            collecting records of car breakins, especially around San Francisco. The data I'm pulling fram is from the twitter accound <strong>@SFCarbreakin</strong>, who has been actively collecting people's experience for years. I am expecting to use tweets to track and anlyze the trend of car break-ins
+            over time and also using different fields like (location) and (time of the day) to supplement the SF police data source. For clean-up I mainly perform text-vertorization, by pulling and filtering out key words from tweets and put them as matrix to analyize the correlation between each word. 
+            <br><br>
 
-            <ol style="text-align:left; margin-left: 80px; margin-right: 80px;">
+            Since 'ntlk' package could only deal with limited number of data-inputs, I only pulled 200 most recent tweets from <strong>@SFCarbreakin</strong>'s timeline and I filtered the common words like "and", "we", "in" ...etc, then I reorder the word column by their frequency, 
+            choose the top 20 most appeared words and run vectorization analyze on them, which I end up with a matrix of correlation datas.  
+
+            <center><img src="originial data.png" alt="Pre-Clean Data" style="width:800px;height:350px;"><br></center>
+            <center><p> The Original Data downloaded Pulled from twitter</p></center>
+            <center><img src="correlation_matrix.png" alt="post clean Data 2019" style="width:800px;height:300px;"><br></center>
+            <center><p> The vectorized textual data.</p></center>
+
+            <ol style="text-align:left; margin-left: 120px; margin-right: 120px;">
                 <li>Link to the Python clean up code: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/02-data-cleaning"> 02-data-cleaning </a></li>
                 <li>Link to the clean up data: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/data"> Github-data </a></li>
               </ol> 
     <hr>
     <footer>
-        <p style="text-align:left; margin-left: 80px; margin-right: 80px;">
+        <p style="text-align:left; margin-left: 120px; margin-right: 120px;">
             <a href="https://yicheng.georgetown.domains/501-project-website/index.html">Return to the Home page</a>
         </p> 
       </footer>

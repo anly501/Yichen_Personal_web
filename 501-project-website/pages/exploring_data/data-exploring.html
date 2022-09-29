@@ -3,31 +3,49 @@
     <head>
         <meta charset ="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" />
-		<title>Data Cleaning</title>
+		<title>Expolring Data Through Graph</title>
 
 	</head>
     <body>
-        <h1 style="text-align:center ;">Exploring the Data of R</h1>
-        <h2 style="text-align:left; margin-left: 60px;">The source of the data:</h2>
-        <p style="text-align:left; margin-left: 60px; margin-right: 60px;"> One of the data source will be the <strong>San Francisco Police Reports</strong> database, this database include all the reported crimes 
-            that happenes since 2018 and larcenry (from vehicle) is one of them, so I will use the data from this dataset with the apis to pull from the source.
-            The raw csv data is also avaliable in the github ./data folder for the readers.
-        </p>
-        <ol style="text-align:left; margin-left: 60px; margin-right: 60px;">
-            <li>Python API Link from Socrata: <a href="https://dev.socrata.com/foundry/data.sfgov.org/wg3w-h783">Police Department Incident Reports: 2018 to Present</a></li>
-            <li>Link to the Github API code: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/01-data-gathering"> Github-codes</a></li>
-          </ol>
-        <h1 style="text-align:center ;">Data gathering method Using R API: Twitter</h1>
-        <h2 style="text-align:left; margin-left: 60px;">The source of the data:</h2>
-        <p style="text-align:left; margin-left: 60px; margin-right: 60px;"> One of the other data sources will be the <strong>Twitter Tweets</strong>, I am expecting to use tweets to track and anlyze the trend of car break-ins
-            over time and also using different fields like (location) and (time of the day) to supplement the SF police data source. There are also accounts that keep tracking of car break-ins around SF, which I beleve will be a great source of information. 
-            <ol style="text-align:left; margin-left: 60px; margin-right: 60px;">
+
+        <h1 style="text-align:center ;">Twitter Text Data visualization</h1>
+        <h2 style="text-align:left; margin-left: 300px;">The source of the data:</h2>
+        <p style="text-align:left; margin-left: 300px; margin-right: 300px;"> <strong>Brief introduction:</strong> One of the data sources will be the Twitter Tweets, people tend to share thier frustration and unfortunate experience online and there are also twitter account specialized in 
+            collecting records of car breakins, especially around San Francisco. The data I'm pulling fram is from the twitter accound <strong>@SFCarbreakin</strong>, who has been actively collecting people's experience for years. I have used two way to visualized the tweets, one is rating the key word and creating a corresponding cloud 
+            and another one is using the heat map to present the correlation between each words.
+
+        <h3 style="text-align:left; margin-left: 300px;">The rating and word cloud:</h2>
+            <p style="text-align:left; margin-left: 300px; margin-right: 300px;"> I believe word_cloud is an clear and obvious way to demonstrate the key words for this project. After pulling in the tweets, I remove all the puncuations and common stop words to avoid possible interferance of the data,
+                then I use the <strong>SentimentIntensity Analyzer</strong> to run an rating apprioximation of the tweets data, then use the word cloud to present the results. Which in this case, the top negative words are mostly "broken", "car", "steal","window"</p>
+            <center><img src="top_negative.png" alt="top_negative" style="width:600px;height:400px;"><br></center>
+            <center><p> The Car Larcenry Distribution by Days of the Week</p></center>
+
+        <h3 style="text-align:left; margin-left: 300px;">The rating and word cloud:</h2>
+            <p style="text-align:left; margin-left: 300px; margin-right: 300px;"> The heatmap on the other hand was use to demonstrate the correlation between key words like "break", "SF", "car", "smashed". Which don't show a strong correlation but just some minor relationship between the words like "car"
+            and "break", "window" and "smashed", this give the audiance a better understanding between how these cases are often strongly related to the city of San Francisco. </p>
+            <center><img src="word_heat.png" alt="word_heat" style="width:600px;height:400px;"><br></center>
+            <center><p> The Car Larcenry Distribution by Year</p></center>
+
+            <ol style="text-align:left; margin-left: 300px; margin-right: 300px;">
                 <li>R API for twitter SF Breakins: <a href="https://twitter.com/SFCarBreakins">Car Break-ins</a></li>
                 <li>Link to the Github API code: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/01-data-gathering"> Github-codes</a></li>
               </ol>
-        <h2 style="text-align:left; margin-left: 60px; margin-right: 60px;">Example of Map of Police Department Larcenry Incident Reports:</h2>
-        <center><img src="report.png" alt="The dog Luna" style="width:600px;height:350px;"><br></center>
+            <br>
+        <h1 style="text-align:center ;">Exploring the Data of R</h1>
+        <h2 style="text-align:left; margin-left: 300px;">The source of the data:</h2>
+        <p style="text-align:left; margin-left: 300px; margin-right: 300px;"> One of the data source will be the <strong>San Francisco Police Reports</strong> database, this database include all the reported crimes 
+            that happenes since 2018 and larcenry (from vehicle) is one of them, so I will use the data from this dataset with the apis to pull from the source.
+            The raw csv data is also avaliable in the github ./data folder for the readers.
+        </p>
+        <ol style="text-align:left; margin-left: 300px; margin-right: 300px;">
+            <li>Python API Link from Socrata: <a href="https://dev.socrata.com/foundry/data.sfgov.org/wg3w-h783">Police Department Incident Reports: 2018 to Present</a></li>
+            <li>Link to the Github API code: <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/01-data-gathering"> Github-codes</a></li>
+          </ol>
+          <center><img src="incident_day.png" alt="Incident happends by Day" style="width:700px;height:500px;"><br></center>
+          <center><p> The Car Larcenry Distribution by Days of the Week</p></center>
+          <center><img src="Incidents_year.png" alt="Incidents_year" style="width:800px;height:500px;"><br></center>
+          <center><p> The correlation between different keywords</p></center>
 
-        <p style="text-align:left; margin-left: 60px; margin-right: 60px;"><a href="https://yicheng.georgetown.domains/501-project-website/index.html">Return to the Home page</a></p>
+        <p style="text-align:left; margin-left: 300px; margin-right: 300px;"><a href="https://yicheng.georgetown.domains/501-project-website/index.html">Return to the Home page</a></p>
     </body>
 </html>
