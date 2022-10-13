@@ -1,0 +1,84 @@
+---
+title: "Naive Bayes"
+author: "Yichen Guo"
+date: "2022-10-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("tidyverse")
+library("e1071")
+library("caret")
+library("caTools")
+library(dplyr)
+```
+
+
+```{r}
+incident_2018 <- read_csv("~/anly-501-project-YichenG82619/data/01-modified-data/incident_2018.csv")
+head(incident_2018)
+```
+```{r}
+df= incident_2018%>%
+  select(Incident.Day.of.Week,Report.Type.Description,Incident.Description, Police.District)
+df= df %>% separate(Incident.Description, c('crime_type','locked_type','value_lost'), sep = ",")
+df <- subset(df, select = -crime_type)
+#Based on the position
+df <- df %>% mutate(across(c(1: 3), factor))
+df <- df %>% mutate(Police.District = factor(Police.District))
+```
+
+```{r}
+str(df)
+df$extreme_level_label <- with(df, ifelse(df$value_lost %in% " >$950", '1', '0'))
+df <- df %>% mutate(value_lost = factor(value_lost))
+```
+
+```{r}
+# Splitting data into train and test data
+split <- sample.split(df$extreme_level_label, SplitRatio = 0.7)
+train_cl <- subset(df, split == "TRUE")
+test_cl <- subset(df, split == "FALSE")
+```
+
+```{r}
+# Fitting Naive Bayes Model to training dataset
+classifier_cl <- naiveBayes(extreme_level_label ~ ., data = train_cl)
+classifier_cl
+# Predicting on test data'
+y_pred <- predict(classifier_cl, newdata = test_cl)
+# Confusion Matrix
+cm <- confusionMatrix(data = y_pred,reference = as.factor(test_cl$extreme_level_label))
+#cm
+```
+```{r}
+X <- as.data.frame(classifier_cl$tables$locked_type)
+plt1=ggplot(X, aes(Y,locked_type, fill= Freq)) +
+        geom_tile() + geom_text(aes(label=Freq)) +
+        scale_fill_gradient(low="white", high="#990000") +
+        labs(x = "Predict Labels",y = "True Labels") +
+        ggtitle("relationship between lock status and good lost")+
+        theme(plot.title = element_text(size = 25, face = "bold"))
+plt1
+ggsave("relationship_lock_and_lost.png", plt1, path = "~/anly-501-project-YichenG82619/501-project-website/images",width = 10,height = 7)
+
+```
+
+```{r}
+#plot the matrix
+plt <- as.data.frame(cm$table)
+plt$Prediction <- factor(plt$Prediction, levels=rev(levels(plt$Prediction)))
+cf=ggplot(plt, aes(Prediction,Reference, fill= Freq)) +
+        geom_tile() + geom_text(aes(label=Freq)) +
+        scale_fill_gradient(low="white", high="#08306B") +
+        labs(x = "Predict Labels",y = "True Labels") +
+        ggtitle("Confusion Matrix of Car Breakins and Value lost")+
+        theme(plot.title = element_text(size = 25, face = "bold"))
+cf
+ggsave("CM_Carbreakins.png", cf, path = "~/anly-501-project-YichenG82619/501-project-website/images",width = 10,height = 7)
+```
+

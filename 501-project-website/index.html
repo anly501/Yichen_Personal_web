@@ -6,6 +6,9 @@
     <meta charset ="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" />
     <title>Yichen Guo</title>
+    <style>
+        .child-top { background-image: url('https://www.georgetown.edu/wp-content/uploads/2019/09/20150324-Campus_0006-2-2000x1125-c--dark-default.jpg');height: 230px;margin: 0%;display: flex;flex-direction: row;justify-content:space-between} 
+    </style>
 
     <!-- point to css stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -14,8 +17,22 @@
 
 
 <body>
-
-<h1> Yichen Guo</h1>
+    <div class="child-top">  
+        <div class = subtitle>
+          <p style="font-size:70px ;color:#d6d3c9;padding-left: 80px;border-right: 6px solid #d6d3c9 ;padding-right: 30px;">
+              Yichen Guo
+          </p>
+      </div>
+    
+    <div class="last-word" style="padding-right:80px ;padding-top: 30px;">
+        <h1 style="color: #d6d3c9;text-align:right;">
+              Yichen's Anly-501 Project 
+        </h1>
+        <p style = "color:whitesmoke; font-weight:200; font-size: 16px;text-align:right" >
+            &copy; 2022, hosted by GU domain
+           </p>      
+        </div>
+    </div>
 <hr> 
 <!-- HEADER BAR -->
 <ul class="center">
@@ -57,7 +74,12 @@
         </div>
     </li>
 
-    <li><a> Naïve Bayes</a> </li>
+    <li class = "dropdown"> 
+        <a href="javascript:void(0)" class="dropbtn"> Naive Bayes</a>
+        <div class="dropdown-content">
+            <a href="./pages/Naive-Bayes/naive-bayes.html">Naive Bayes</a>
+        </div>
+    </li>
 
     <li><a> Decision Trees</a> </li>
 
