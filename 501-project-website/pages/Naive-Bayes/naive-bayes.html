@@ -72,7 +72,7 @@
         <div class="bayes_box2">
         
             <p class = bayes_caption2>
-              According to the precision recall curve, it is easier for model to detect truth, while it is relatively hard to tell rumor from truth. This means the model is not applicable in practical use.
+              According to the precision recall curve, it is easier for model to detect crime reports from tweets that include the key word break in but non-related to car breakin crime. This means the model is applicable in practical use to detecet whether a tweets include key words like car break-in are crime report or not.
             </p>
           <img src="../../images/PR_curve_naive_bayes.png" class="bayes_pic2">
           </img>
@@ -99,10 +99,10 @@
             Modeled by R
           </p>
           <p style="font-size: 50px; font-weight:bold;margin-top:10px;padding-top: 0px;padding-left:80px;margin:0px">
-            Rumor Detection Based on Tweet Performance and Account Character
+            Value lost Detection Based on Classification features
           </p>
           <p style="font-size: 18px; font-weight:bold;margin-bottom: 0px;padding-left:80px;width: 1400px;margin-top: 0px;">
-            The model is built with tweets performance and account features. A naive bayes model was built by these continuous variables.
+            The model is built with four classification features, including days of the week, police distric, self report or not, and car locked or not. A naive bayes model was built by these continuous variables.
           </p>
         </div>
 
@@ -111,14 +111,14 @@
           <img src="../../images/relationship_lock_and_lost.png" class="bayes_pic1">
           </img>
           <p class = bayes_caption1>
-            According to the correlation graph, friends count and favourite count is related to each other, which is consisitent with intuition.
+            The label is created by labeling different case reported by the value of good they lost. According to the frequency plot, locked car were tend to lose more valueable goods compare to others.
           </p>
           </div>
           <!--the following div is the second box -->
           <div class="bayes_box2">
           
               <p class = bayes_caption2>
-                According to the confusion matrix, this model performs better than the previous one. The number of true positive is high and the number of false negative is 0,meaning it has low error rate.
+                According to the confusion matrix, this model performs better than the previous one. The number of true positive and true negative is high and the number of false negative is 0,meaning it has low error rate.
               </p>
             <img src="../../images/CM_Carbreakins.png" class="bayes_pic2">
             </img>
@@ -138,7 +138,8 @@
               Conclusion
             </h1>
             <p style="font-size: 25px;margin-bottom: 0px;margin-top: 0px;">
-              The model based on account features and tweet performance is better than the model based on tweet text, this means that to detect whether a sentence is a rumor, it is hard to judge according to its content. However, it is more effective to make a decision based on the account.
+              The model based on key words and texts is more practical compared to the classification features by police districs and others desipte a slightly lower accuracy. However, these classification feature,
+              whether the car is locked or not, the crime is self reported compared to police report does provide an accurate predcition of the value lost. 
             </p>
           </div>
         </div>
