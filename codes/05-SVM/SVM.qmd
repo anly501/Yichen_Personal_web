@@ -1,0 +1,143 @@
+---
+title: "SVM"
+format:
+  html:
+    code-fold: true
+    theme: custom.scss
+---
+
+## Method
+This section I will testing out the ***SVM(Supported Vector Machine)*** on the tweets collected from the twitter API including key word likes "breakin" and "San francisco" thats been explored in the data exploring section part of the project. Like the typical traditional classification method that using sigmod function to distinguish the different class of the target, this method "draw a bound" at the middle of the distance between the closest two samples.
+
+<br></br>
+![](svm.png)
+<center>*(Example how svm functions)*</center>
+<br></br>
+
+A support vector machine takes these data points and outputs the hyperplane (which in two dimensions it’s simply a line) that best separates the tags. This line is the ***decision boundary***: anything that falls to one side of it we will classify as blue, and anything that falls to the other as red. But, what exactly is the best hyperplane? For SVM, it’s the one that maximizes the margins from both tags. In other words: the hyperplane (remember it's a line in this case) whose distance to the nearest element of each tag is the largest.
+
+Advantages of this method is: SVM performs reasonably well when the difference between classes is huge.
+
+## Class Distribution and Modification
+
+```{python}
+# import libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import confusion_matrix
+
+# load the data 
+df=pd.read_csv("../../data/01-modified-data/breakin_prediction.csv", encoding = "ISO-8859-1")
+y=df["label"]
+# plot the distribution of two classes
+sns.set_theme()
+plt.hist(y)
+plt.title("The distribution of the class",fontsize=18)
+plt.xlabel("Class",fontsize=16)
+plt.ylabel("Counts",fontsize=16)
+df.head()
+```
+
+As the graph show, the twitter dataset is pretty balanced since it's already been adjusted in previous prediction process. All the tweets are collected with keyword search like "breakin" and "San francisco" and has been hand filiter to make sure correctly get the result I am looking for. The label "1" stands for an actual crime that happens and been report in the tweets, and "0" are the tweets include the keywords but not a crime report. 
+<br></br>
+
+## Baseline Model for Comparsion
+```{python}
+# set a baseline model which random predict label
+def random_classifier(y_data):
+    ypred=[]
+    max_label=np.max(y_data); #print(max_label)
+    for i in range(0,len(y_data)):
+        ypred.append(int(np.floor((max_label+1)*np.random.uniform(0,1))))
+    print("-----RANDOM CLASSIFIER-----")
+    print("accuracy",accuracy_score(y_data, ypred))
+    print("percision, recall, fscore,",precision_recall_fscore_support(y_data,ypred))
+random_classifier(y)
+```
+<br></br>
+
+With the baseline model using random claissifer, we can see the accuracy score is about 41%, thus our decision tree model could use this model as a baseline and must perform better accuracy compare this random classifer.
+
+## Feature Selection
+```{python}
+
+y=df['label']
+X=df["text"]
+# transform texts with countvectorizer
+vectorizer = CountVectorizer()
+matrix = vectorizer.fit_transform(X)
+X = pd.DataFrame(matrix.toarray(),columns=vectorizer.get_feature_names_out())
+
+# split the data
+x_train,x_test,y_train,y_test=train_test_split(X,y,test_size=0.2)
+```
+
+Since I trying to use Support Vector Machine model to classify and predicting tweets, I transformed and vectorized the text by "CountVectorizer".
+<br></br>
+
+## Model tuning
+```{python}
+#find the best hyperparametres with GridSearchCV library
+parameter=[
+    {"C":[1,10,100,1000],"kernel":["linear"]},
+    {"C":[1,10,100,1000],"kernel":["rbf"],"gamma":[0.1,.2,.3,.4,.5,.6,.7,.8,.9]}
+]
+grid_search = GridSearchCV(SVC(), param_grid=parameter, scoring="accuracy",cv=10)
+grid_search=grid_search.fit(X, y)
+print("The best hyperparametres are:",grid_search.best_params_)
+grid_search
+```
+In this part, we use "GridSearchCV" function to help us find the beset parametres so that we don't need to write codes and make some loops manually. The result shows that we should use linear kernel and should set C as 1.
+
+<br></br>
+
+## Final Results
+```{python}
+#write a function to report and plot the metrics and confusion matrix.
+def confusion_plot(y_data,y_pred):
+    print(
+        "ACCURACY: "+str(accuracy_score(y_data,y_pred))+"\n"+
+        "NEGATIVE RECALL (Y=0): "+str(recall_score(y_data,y_pred,pos_label=0))+"\n"+
+        "NEGATIVE PRECISION (Y=0): "+str(precision_score(y_data,y_pred,pos_label=0))+"\n"+
+        "POSITIVE RECALL (Y=1): "+str(recall_score(y_data,y_pred,pos_label=1))+"\n"+
+        "POSITIVE PRECISION (Y=1): "+str(precision_score(y_data,y_pred,pos_label=1))+"\n"
+    )
+    cf=confusion_matrix(y_data, y_pred)
+    # customize the anno
+    group_names = ["True Neg","False Pos","False Neg","True Pos"]
+    group_counts = ["{0:0.0f}".format(value) for value in cf.flatten()]
+    group_percentages = ["{0:.2%}".format(value) for value in cf.flatten()/np.sum(cf)]
+    labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in zip(group_names,group_counts,group_percentages)]
+    labels = np.asarray(labels).reshape(2,2)
+    #plot the heatmap
+    fig=sns.heatmap(cf, annot=labels, fmt="", cmap='Blues')
+    plt.title("Confusion Matrix of tweets - SVM",fontsize=18)
+    fig.set_xticklabels(["True Crime","Not Crime"],fontsize=13)
+    fig.set_yticklabels(["True Crime","Not Crime"],fontsize=13)
+    fig.set_xlabel("Predicted Labels",fontsize=14)
+    fig.set_ylabel("True Labels",fontsize=14)
+    plt.show()
+
+#fit the model with the best hyperparametres
+clf=SVC(C=1,kernel="linear")
+clf.fit(x_train,y_train)
+yp_test=clf.predict(x_test)
+confusion_plot(y_test,yp_test)
+```
+
+Suprisingly the SVM model with the best parameters was able to reach 100% accuracy in the test dataset. That could be the inefficient dataset I have collected from the twitter so the model was overfitting(desipite being test on the testing set). 
+<br></br>
+
+## Conclusion
+
+The SVM seems performing perfectly in the tweets vectorizatioin and preditions, however, it's hard to make conclusion that SVM will be the perfect model since the dataset only include about 100 tweets and the model might be overfitting when dealing with the dataset. Compare to the Naive Bayes prediction on the similiar dataset, SVM still shows its adavantage compare to others like Naive Bayes. 

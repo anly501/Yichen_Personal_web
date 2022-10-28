@@ -37,6 +37,11 @@ str(df)
 df$extreme_level_label <- with(df, ifelse(df$value_lost %in% " >$950", '1', '0'))
 df <- df %>% mutate(value_lost = factor(value_lost))
 ```
+```{r}
+within(df, rm(value_lost))
+write.csv(df,'classification_prediction.csv',row.names = FALSE)
+```
+
 
 ```{r}
 # Splitting data into train and test data
