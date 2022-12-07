@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.258">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Final Project Conclusion</title>
+<style>
+.child-top { background-image: url('https://www.georgetown.edu/wp-content/uploads/2019/09/20150324-Campus_0006-2-2000x1125-c--dark-default.jpg');height: 230px;margin: 0%;display: flex;flex-direction: row;justify-content:space-between} 
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="final_files/libs/clipboard/clipboard.min.js"></script>
+<script src="final_files/libs/quarto-html/quarto.js"></script>
+<script src="final_files/libs/quarto-html/popper.min.js"></script>
+<script src="final_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="final_files/libs/quarto-html/anchor.min.js"></script>
+<link href="final_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="final_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="final_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="final_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="final_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+  <div class="child-top">  
+    <div class = subtitle>
+      <p style="font-size:70px ;color:#d6d3c9;padding-left: 100px;padding-top: 30px;border-right: 6px solid #d6d3c9 ;padding-right: 30px;">
+      Project Conclusion
+      </p>
+  </div>
+
+<div class="last-word" style="padding-right:100px ;padding-top: 30px;">
+    <h1 style="color: #d6d3c9;text-align:right;">
+          Yichen's Anly-501 Project 
+    </h1>
+    <p style="color:grey;margin-top: -15px;text-align:right;">
+        <a href="https://yicheng.georgetown.domains/501-project-website/index.html">Return to the Home page</a>
+    </p>
+    <p style = "color:whitesmoke; font-weight:200; font-size: 16px;text-align:right" >
+      &copy; 2022, hosted by GU domain
+     </p>        
+    </div>
+</div>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Project Conclusion</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>To summarize the entire project, the intial goals of this project was to analysis 1. What contribute to the car breakin in San Francisco? 2. How twitter is using as a platform reporting Car break-in crimes in San Francisco? And trying to explor many other data science question along the progress. However, when collecting data for the porject, the complexity and difficlutity of this project exceed my previous expectations. I ending up with two major data sources, twitter API pulling tweets related to “SF car breakins” and San Francisci Police Department crime report database. The car break-ins are filtered out from the SFPD database and group by years, also created new variables like the value of good lost in the incident to serve as target variables for the supervised learning, where the tweets are cleaned up and labeled manullay to searve as a useful dataset.</p>
+<p>After a throughly clean up, the initial <strong>exploratory data analysis (EDA)</strong> was already able to generate some interesting information that correspond with my primary assumption of the factor that contribute to the incidents and number of car break-ins in San Francisco. TO gather the data, I used twitter api to collecting tweets by key words such as “car”, “break”, “window”, etc, then during the eda processes, I vectorized the data and analyzed the tweets by <strong>Sentiment Intensity</strong>, which the top ten negative words endedup be, “broken”, “break”, “San Francisco” ,etc. Thus from the begining the EDA was able to identified the key for this research.</p>
+<br><br> <img src="top_negative.png" class="img-fluid">
+<center>
+The top 10 negative words
+</center>
+<p><br><br></p>
+<p>Throughout the semeester, as we getting a deeper knowledge of the data science world, the project winding down to become a complex research using all kind of algothrim, both supervised and unsupervised learning, to explore the SF car break-in data collected from twitter and SFPD databse. Frist model I tested on the datasets is <strong>Naive-bayes</strong>, which I used python to test whether a the model is able to clearly identitfy the true crime reports and used R to tested on the variables that effect the value of good lost in each incident. For twitter crime report detection, we could see that naive bayes perform expectionally when predicting the labels with more data fed into the model. And overall the model based on key words and texts is more practical compared to the classification features by police districs and others desipte a slightly lower accuracy. However, these classification feature, whether the car is locked or not, the crime is self reported compared to police report does provide an accurate predcition of the value lost.</p>
+<br><br> <img src="naive.png" class="img-fluid">
+<center>
+The learning curve for naive-bayes
+</center>
+<p><br><br></p>
+<p>I have also tested other supervised learning algorthms such as <strong>decision tree</strong> and <strong>SVM</strong> on the dataset. For decision tree, The overall accuracy for the model is greate, about 85%, however to inprove the model accuracy with this imbalanced dataset, we could probably perform a random forest experiment that keep resampling the data and construct multiple trees and vote on the majority result, or try other classification method. In comparesion, the SVM seems performing perfectly in the tweets vectorizatioin and preditions, however, it’s hard to make conclusion that SVM will be the perfect model since the dataset only include about 100 tweets and the model might be overfitting when dealing with the dataset. Compare to the Naive Bayes prediction on the similiar dataset, SVM still shows its adavantage compare to others like Naive Bayes.</p>
+<br><br> <img src="tree.png" class="img-fluid">
+<center>
+The cofusion matrix for decision tree classification
+</center>
+<p><br><br></p>
+<p>The final touch for the project focus on unsupverized learning, <strong>clustering</strong> and <strong>ARM</strong>.</p>
+<p>For Clustering, the twitter crime report(textual data), K-means clustering perfom the best and was able to generate the prediction of the tweets with label relatively clost to the actualy labels of each dataset. This conclusion might not be inclusive since for textual data after vectorization, the dimension of the matrix could played an effected in the model’s performance of clustering each tweets. DBSCAN and Agglomerative/Hierarchical clustering both are useful clustering method when targeting specific distribution of the dataset and their focus of relationships between each dataset is also different.</p>
+<p>The ARM tab is also interesting that new findings like the strong correlation between certain sets of words that support and echo with previous findings in EDAs and regression anaylsis. ARM is a useful method to figure out the relationship between each variables. This tab also demonstrate that the application of the ARM is not limited to the typical transcation data but as well as NLP, Image analysis, Click streams, Bio data- binding sites, etc</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

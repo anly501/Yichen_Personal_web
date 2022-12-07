@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <title>Yichen Guo 501 Project Conclusion</title>
+    <style>
+        body{margin: 0;}
+        .child-top { background-image: url('https://www.georgetown.edu/wp-content/uploads/2019/09/20150324-Campus_0006-2-2000x1125-c--dark-default.jpg');height: 230px;margin: 0%;display: flex;flex-direction: row;justify-content:space-between} 
+        .blank{height:80px}
+        .position{display:flex; flex-direction: row;justify-content:center;}
+        a:visited{color:black}
+        a{text-decoration: none;font-weight:bold;font-size: 20px;color: #003366;}
+        .con_title{font-size: 40px; font-weight:bold;margin-top:30px;padding-top: 0px;padding-left:80px;margin-bottom: 0px;margin-bottom: 0px;color: #041E42;}
+        .con_text{padding-top: 20px;padding-right:80px;padding-left:80px;font-size: 20px;margin-top: 0px;margin-bottom: 0px;color:#4a4a4a;}
+        *{
+        font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div class="child-top">  
+        <div class = subtitle>
+          <p style="font-size:70px ;color:#d6d3c9;padding-left: 100px;padding-top: 30px;border-right: 6px solid #d6d3c9 ;padding-right: 30px;">
+          Project Conclusion
+          </p>
+      </div>
+    
+    <div class="last-word" style="padding-right:100px ;padding-top: 30px;">
+        <h1 style="color: #d6d3c9;text-align:right;">
+              Yichen's Anly-501 Project 
+        </h1>
+        <p style="color:grey;margin-top: -15px;text-align:right;">
+            <a href="https://yicheng.georgetown.domains/501-project-website/index.html">Return to the Home page</a>
+        </p>
+        <p style = "color:whitesmoke; font-weight:200; font-size: 16px;text-align:right" >
+          &copy; 2022, hosted by GU domain
+         </p>        
+        </div>
+    </div>
+    <div style="height:50px">
+    </div>
+
+    <div style="display:flex; flex-direction:column;align-items: center;"> 
+      <div style="width:1150px;">
+        <p class="con_title">
+          Conclusion
+        </p> 
+        <div>
+          <p class="con_text">
+          From the inspiration gained from EDA and ARM, we can conclude that: 
+          </p>
+          <p class="con_text" style="padding-top:5px;">
+          About the account sending rumors, most of them was followed by less than 40,000 people. They tend to describe it as political information organization, a combination of "family","life" and "freedom" tend to be the core value of them.
+          </p>
+          <p class="con_text" style="padding-top:5px;">
+          About the rumors, the topics tend to be related to the hotspots. In genreal, they are more likely to be widely spread compared to truth.
+          </p>
+          <p class="con_text">
+          After trying different models and the evaluations, it turns out that naive bayes is the suitable method to build rumor detection, and we should use decision tree to build susceptible user detection. 
+          </p>
+          <div style="display:flex; flex-direction: row;justify-content:center;">
+            <img src="images/confusion_matirx_text_naive_bayes.png" style="width:400px;height:320px">
+            <img src="images/cm_DT.jpg" style="width:376px;height:315px">
+          </div>
+        </div>
+        <br>
+        <p class="con_title">
+          Shortage
+        </p> 
+        <div>
+          <p class="con_text">
+            As people always say: data determines the quality of the model. The biggest shortage comes from the original data used for building rumor detection.
+          </p>
+          <p class="con_text" style="padding-top:5px;">
+            Firstly, both the volume and the occurrence time of data may damage the generalization of the model training. Since the positive instances can only be collected manually, there are only 100 positive instances. And, according to the EDA result, these instances' topics are relevant to the hotspots that happened in 2022.
+          </p>
+          <p class="con_text" style="padding-top:5px;">
+            Secondly, the negative instances were gained by sampling the tweets from several institutions. Duplicates inevitably exist in the feature "account description". When this feature was chosen to build a model, a biased negative judgment will be produced especially for the probability models.
+          </p>
+          <p class="con_text">
+            Besides, more method can be used. Due to time limits and the framework of the course, only 5 basic models have been applied in this coursework. Logistic regression or ensemble methods like random forest may bring a better result.
+          </p>
+          </div>
+
+      </div> 
+    </div>
+
+  
+
+<div class="blank">
+</div>
+
+<footer>
+<div style="background-color:#313030">
+
+    <div style="height:50px;padding-top: 3px;margin-top: 0px;">
+      <p style="color:	#8d8d8d; margin-left:55px"> &copy; 2022 Yifan Bian 501 Project, powered by GU domain </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

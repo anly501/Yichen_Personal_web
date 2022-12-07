@@ -8,11 +8,20 @@
     <title>Yichen Guo</title>
     <style>
         .child-top { background-image: url('https://www.georgetown.edu/wp-content/uploads/2019/09/20150324-Campus_0006-2-2000x1125-c--dark-default.jpg');height: 230px;margin: 0%;display: flex;flex-direction: row;justify-content:space-between} 
+        .self{display:flex; flex-direction: row;justify-content:center;height: 350px;}
+        .about_details{display:flex; flex-direction: row;justify-content:center;}
+        .about_academic{display:flex; flex-direction: column;} 
+        .skill_box{display:flex; flex-direction: column;align-items: center;}
+        .about_skills{display:flex; flex-direction: column;}
+        .mid_part{padding-top: 80px;padding-bottom: 80px;background-color: #f9f9f9;}
+        .nav_bar{border-bottom: gray solid 3px;display:flex; flex-direction: row;justify-content:flex-start;padding-left: 25%;background-color:	#bed9f3;padding-top: 22px;padding-bottom: 21px;}        
+        .nav_bar a:link{color:black ;}
+        .nav_bar a:visited{color:black;}
+        .nav_bar a{text-decoration: none;margin-left: 25px;font-size: 18px;font-weight:normal;}
+        *{
+        font-family: 'Times New Roman', Times, serif;
+        }
     </style>
-
-    <!-- point to css stylesheet -->
-    <link rel="stylesheet" href="styles.css">
- 
 </head>
 
 
@@ -33,142 +42,68 @@
            </p>      
         </div>
     </div>
-<hr> 
-<!-- HEADER BAR -->
-<ul class="center">
-    <!-- link back to homepage -->
-    <li><a href="./index.html">About me</a></li>
 
-    <li><a href="https://github.com/anly501/anly-501-project-YichenG82619/" target="_blank">Github Code</a></li>
+    <div class="nav_bar">
+        <a href="https://github.com/anly501/anly-501-project-YichenG82619/">Code</a>
+        <a href="https://github.com/anly501/anly-501-project-YichenG82619/tree/main/data">Data</a>
+        <a href="./pages/intro/intro.html">Introduction</a>
+        <a href="./pages//data-gathering/data-gathering-page.html">Data Gathering</a>
+        <a href="./pages/data_cleaning/data-cleaning.html">Data Cleaning</a>
+        <a href="./pages/exploring_data/data-exploring.html">Exploring Data</a>
+        <a href="./pages/Naive-Bayes/naive-bayes.html">Naive Bayes</a>
+        <a href="./pages/decision-tree/decision-tree.html">Decision Trees</a>
+        <a href="./pages/svm/SVM.html">SVM</a>
+        <a href="./pages/clustering/clustering.html">Clustering</a>
+        <a href="./pages/arm/ARM.html">ARM Analysis</a>
+        <a href="./pages/conclustion/final.html">Project Conclusion</a>
+      </div>
     
-    <li><a href="./pages/introduction.html">Introduction</a></li>
-
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Data</a>
-        
-        <div class="dropdown-content">
-
-            <a href="https://github.com/anly501/anly-501-project-YichenG82619/blob/main/Filitered%20Larcenry%20from%20car.csv" target="_blank">Small Data</a>
+      <div class="mid_part">
+        <div class="self">
+            <div class="self_image" >
+                <img src="images/gradimage.jpeg" style="height:360px;width:270px;margin-right:60px;margin-left:40px;" >
+            </div>
+            <div class="self_intro">
+                <p style="color: #041E42;font-size: 50px;font-weight: bold;margin-top: 10px; margin-bottom: 10px;">Yichen Guo</p>
+                <p style="margin-top: 0px;font-size: 18px;">Graduate Student at Georgetown University</p>  
+                <p style="margin-top: 0px;font-size: 18px;">M.S. in Data Science and Analytics, B.S. in Economics and Math, B.A. in History</p>
+                <p style="margin-top: 0px;font-size: 18px;">B.S. in Economics and Math, B.A. in History</p>
+                <p style="margin-top: 0px;font-size: 18px;">Email:yg358@georgetown.edu</p>
+                <div class="contact">
+                    <a href="https://www.linkedin.com/in/yifan-bian-flynn/"> <img src="images/linkedin.png"></a>
+                    <a href="https://github.com/FlynnFlag"> <img src="images/github.png"></a>
+                    <a href="mailto:yb216@georgetown.edu"> <img src="images/envelope.png"></a>
+                </div> 
+  
+            </div>
         </div>
-    </li>
-
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Data Gathering</a>
-        
-        <div class="dropdown-content">
-            <a href="./pages/data-gathering/sf_police_report.html">Python API: SF Police Reports</a>
-            <a href="./pages/twitter_api_r/Twitter_R.html">R API: Twitter</a>
+        <br>
+        <div class="about_details">
+            <div class="about_academic" style="border-top:1px solid  #041E42;width: 550px;">
+                <a style="color: #041E42;font-size: 27px;font-weight:bold;font-style: oblique;margin-bottom: 15px;margin-top: 25px;"> About</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Hello, my name is Yichen Guo, I graduate from the University of Southern California with honors in 2022. And I'm currently pursuing MS in Data Science and Analytics at Georgetown University.</a><br>
+                <a style="font-size: 18px;margin-bottom: 5px;">As a DSAN student, I have a strong interest in machine learning and natural language processing, and I believe that will likely be my career goal, to become a machine learning engineer that resea1 the most cutting-edge issues between the intersection of technology development and human society. I hope I can really utilize the knowledge I learned from school to benefit my future career development and produce positive impacts rather than just wasting my life in front of my laptop.</a>
+            </div>
+            <div style="width:80px;">
+            </div>
+            <div class="about_academic" style="border-top:1px solid  #041E42;width: 250px;">
+                <a style="color: #041E42;font-size: 27px;font-weight:bold;font-style: oblique;margin-bottom: 15px;margin-top: 25px;"> Academic Interests</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Convex Optimization</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Image Recognition</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Machine Learning</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Computational Linguistics</a>
+            </div>
         </div>
-    </li>
-    <li class = "dropdown">
-        <a href="javascript:void(0)" class="dropbtn"> Data Cleaning</a>
-        <div class="dropdown-content">
-            <a href="./pages/data_cleaning/data-cleaning.html">Data Cleaning Using R and Py</a>
-        </div>
-    </li>
-
-    <li class = "dropdown">
-        <a href="javascript:void(0)" class="dropbtn"> Exploring Data</a>
-        <div class="dropdown-content">
-            <a href="./pages/exploring_data/data-exploring.html">Exploring Data</a>
-        </div>
-    </li>
-
-    <li class = "dropdown"> 
-        <a href="javascript:void(0)" class="dropbtn"> Naive Bayes</a>
-        <div class="dropdown-content">
-            <a href="./pages/Naive-Bayes/naive-bayes.html">Naive Bayes</a>
-        </div>
-    </li>
-
-    <li class = "dropdown"> 
-        <a href="javascript:void(0)" class="dropbtn"> Decision Trees</a>
-        <div class="dropdown-content">
-            <a href="./pages/decision-tree/decision-tree.html">Decision Trees</a>
-        </div>
-    </li>
-
-    <li class = "dropdown"> 
-        <a href="javascript:void(0)" class="dropbtn"> SVM</a>
-        <div class="dropdown-content">
-            <a href="./pages/svm/SVM.html">SVM</a>
-        </div>
-    </li>
-
-    <li class = "dropdown"> 
-        <a href="javascript:void(0)" class="dropbtn"> Clustering</a>
-        <div class="dropdown-content">
-            <a href="./pages/clustering/clustering.html">Clustering</a>
-        </div>
-    </li>
-
-    <li><a> ARM and Networking</a> </li>
-
-    <li><a> Conculsions</a> </li>
- 
-</ul>
-
-
-<!-- USE A TABLE TO ORGANIZE/FORMAT THE WEBPAGE -->
-<table class="center">
-    <!--TABLE ROW-1-->
-   <tr>
-      <!--ROW-1 COL-1-->
-      <td>
-            <center><img src="images/gradimage.jpeg" width="300" height="400"></center>
-      </td>
-      
-      <!--ROW-1 COL-2-->
-      <td>
-            
-        <h2 style="text-align:mid;font-family:'Courier New';color:rgb(31, 76, 81);padding: 10px;">About me</h2>
-        
-        <p  style= "font-size:14px;
-                    text-align: left;
-                    padding: 10px;
-                    color: black"> 
-            Hello, my name is Yichen Guo, I graduate from the <strong>University of Southern California</strong> with honors in 2022. And I'm currently pursuing MS in Data Science and Analytics at <strong>Georgetown University</strong>.<br>
-            <br>
-            As a DSAN student, I have a strong interest in machine learning and natural language processing, 
-            and I believe that will likely be my career goal, to become a machine learning engineer that resea1 the most cutting-edge issues between the intersection of technology development and human society. 
-            I hope I can really utilize the knowledge I learned from school to benefit my future career development and produce positive impacts rather than just wasting my life in front of my laptop.</p>
-      </td>
-         
-         
-   </tr>
-
-    <!--ROW-2-->
-   <tr>
-      <!--ROW-2 COL-1-->
-      <td>
-        
-
-        <h2 style="text-align:left;font-family:'Courier New'; color: rgb(31, 76, 81); padding-left: 10px;">Academic Interests</h2>
-             
-        <p style="color: black;padding:10px;"> - Machine Learning </p> 
-        <p style="color: black;padding:10px;"> - Deep leanring </p> 
-        <p style="color: black;padding:10px;"> - Natural Language Processing </p> 
-     
-
-      </td>
-      
-      <!--ROW-2 COL-2-->
-      <td>
-
-         <h2 style="text-align:left;font-family:'Courier New'; color:rgb(31, 76, 81);padding:10px;">Education</h2>
-        
-        <p style="color: black;padding:10px;">2022: Bacheler of Art in History @USC </p> 
-        <p style="color: black;padding:10px;">2022: Bacheler of Science in Economics and Math @USC</p> 
-        <p style="color: black;padding:10px;">2018: Tatnall School </p> 
-
-
-      </td>
-   </tr> </table>
-<hr>
-<footer>
-    <p style="color: black">Author: Yichen Guo</p>
-    <p style="color: black">mail to:<a href="mailto:yg358@georgetown.edu">yg358@georgetown.edu</a></p>
-  </footer>
-
+        <br>
+        <br>
+        <div class="skill_box">
+            <div class="about_skills" style="border-top:1px solid  #041E42;width: 550px;width: 880px;">
+                <a style="color: #041E42;font-size: 27px;font-weight:bold;font-style: oblique;margin-bottom: 15px;margin-top: 25px;"> Skills</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Programming: Python, R, Stata, HTML/CSS, SQL </a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Tools: Tableau, Git, APIs, Latex, Excel</a>
+                <a style="font-size: 18px;margin-bottom: 5px;">Analytical Skills: Machine learning, Experiment Design(A/B Testing), Causal Inference, Web Scraping, Visualization</a>
+            </div>
+         </div>
+    </div>   
 </body>
 </html>

@@ -1,0 +1,201 @@
+---
+title: "ARM"
+format:
+  html:
+    code-fold: true
+    theme: custom.scss
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+      df_print: paged
+---
+
+## Introduction
+
+In this tab, I will try to explore the data more with antoher unsupervised algothrim, **ARM (Association Rule Mining)**. ARM is a rule-based method that could discover statistically inter-relationships between variables in large datbases, rules usually take the form of the statemetns of the form "if this then that".  The goal for ARM is given a set of transcations data (training data) and find the rule (model) that will predict the occurrence of an item based on the occurence of other items in the training data. For example, ARM method may find out that people who purchuse bacon will mostly purchase egg, people who clicks on the news of NFL may also interested in the news world cup. Thus the ARM method could provide useful insights on the application recommendation system.
+
+So in this tab we could see in the breakin_prediction.csv to figure out in the tweets in cluding the key words related to SF car break-ins, which words are more correlated and this will help us makes a better prediction on a tweets is wethere a true crime reports or not. 
+
+## Theory
+
+### Statistical independence
+
+Two events are **statistically independent** if, informally speaking, the occurrence of one does not affect the probability of occurrence of the other. Put in the statist termnology, two events $A$ and $B$ are independent if and only if their joint probability equals the product of their probabilities ($P(A\cap B) = P(A)P(B)$). 
+
+<br></br>
+![](disjoint.png)
+<center>*Four state of probability rules*</center>
+<br></br>
+
+### Metrics
+
+There exist three metrics when we trying to find the rule between each variables, let A and B be sets and summe rule $A \Rightarrow B$, where A and B are sets of zero or more items:
+
+>- Support (Sup (A, B)): Measures how often item-set with A and items in B occur together reglative to all other transactions. 
+>- Confidence (Conf(A,B)): Measures how often items in A and items in B occur together, relative to transactions that contain A (1=Stong Rule, 0= no instance of rule).
+>- Lift: The ratio of the observed support to that expected if X and Y wre independent (1=independent, <1 = negeatively related, >1 postitively related). 
+
+<br></br>
+![](metrics.png)
+<center>*An example of the metrics*</center>
+<br></br>
+
+## Method
+
+### Data Selection and Preparation
+
+```{python}
+# import libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# string manipulation libs
+import re
+import string
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from apyori import apriori
+import networkx as nx 
+```
+
+```{python}
+def preprocess_text(text: str, remove_stopwords: bool) -> str:
+    """This function cleans the input text by
+    - removing links
+    - removing special chars
+    - removing numbers
+    - removing stopwords
+    - transforming in lower case
+    - removing excessive whitespaces
+    Arguments:
+        text (str): text to clean
+        remove_stopwords (bool): remove stopwords or not
+    Returns:
+        str: cleaned text
+    """
+    # remove links
+    text = re.sub(r"http\S+", "", text)
+    # remove numbers and special chars
+    text = re.sub("[^A-Za-z]+", " ", text)
+    # remove stopwords
+    if remove_stopwords:
+        # 1. creates tokens
+        tokens = nltk.word_tokenize(text)
+        # 2. checks if token is a stopword and removes it
+        tokens = [w for w in tokens if not w.lower() in stopwords.words("english")]
+        # 3. joins all tokens again
+        text = " ".join(tokens)
+    # returns cleaned text
+    text = text.lower().strip()
+    return text
+
+```
+
+Since tweets including a lot of meaningless stopwords and symbol in the corpus, we use NLTK libirary to import the stopwords and write a function that takes some text as input and returns a clean verision of it. 
+
+```{python}
+# load the data 
+df=pd.read_csv("../../data/01-modified-data/breakin_prediction.csv", encoding = "ISO-8859-1")
+df['cleaned'] = df['text'].apply(lambda x: preprocess_text(x, remove_stopwords=True))
+df=df[df["label"]==1]
+df["cleaned"]=df["cleaned"].apply(word_tokenize)
+df1 = df[['cleaned']]
+df1 = df1.reset_index()
+df1 = df1.drop(columns=['index'])
+df1.head()
+df2= df1['cleaned'].to_list()
+```
+
+### Model Building
+To build the model, Association rules are made by searching data for frequent if-then patterns and by using Support and Confidence to define what the most important relationships are. We will use one of the classifc algorthms in ARM, **Apriori algorithm**. The Apriori is designed to operated on relational databses and identify the frequent individual items in the database and extending them to
+larger and larger item sets as long as those item sets appear sufficiently often in the database.  
+
+```{python}
+def reformat_results(results):
+    keep =[]
+    for i in range(0, len(results)):
+        for j in range(0, len(list(results[i]))):
+            if (j>1):
+                for k in range(0, len(list(results[i][j]))):
+                    if (len(results[i][j][k][0]) != 0):
+                        rhs = list(results[i][j][k][0])
+                        lhs = list(results[i][j][k][1])
+                        conf = float(results[i][j][k][2])
+                        lift = float(results[i][j][k][3])
+                        keep.append([rhs,lhs,supp,conf,supp*conf,lift])
+            if (j==1):
+                supp = results[i][j]
+    return pd.DataFrame(keep, columns =["rhs","lhs","supp","conf","supp x conf","lift"])
+
+def convert_to_network(df):
+    print(df)
+    #BUILD GRAPH
+    G = nx.DiGraph()  # DIRECTED
+    for row in df.iterrows():
+        # for column in df.columns:
+        lhs="_".join(row[1][0])
+        rhs="_".join(row[1][1])
+        conf=row[1][3]; #print(conf)
+        if(lhs not in G.nodes): 
+            G.add_node(lhs)
+        if(rhs not in G.nodes): 
+            G.add_node(rhs)
+        edge=(lhs,rhs)
+        if edge not in G.edges:
+            G.add_edge(lhs, rhs, weight=conf)
+    return G
+
+def plot_network(G):
+    #SPECIFIY X-Y POSITIONS FOR PLOTTING
+    pos=nx.random_layout(G)
+    #GENERATE PLOT
+    fig, ax = plt.subplots()
+    fig.set_size_inches(15, 15)
+    #assign colors based on attributes
+    weights_e 	= [G[u][v]['weight'] for u,v in G.edges()]
+    #SAMPLE CMAP FOR COLORS 
+    cmap=plt.cm.get_cmap('Blues')
+    colors_e 	= [cmap(G[u][v]['weight']*10) for u,v in G.edges()]
+    #PLOT
+    nx.draw(
+    G,
+    edgecolors="black",
+    edge_color=colors_e,
+    node_size=2000,
+    linewidths=2,
+    font_size=8,
+    font_color="white",
+    font_weight="bold",
+    width=weights_e,
+    with_labels=True,
+    pos=pos,
+    ax=ax
+    )
+    ax.set(title='Tweets for true crime reports')
+    plt.show()
+
+results = list(apriori(df2, min_support=0.05, min_confidence=0.2, min_length=3, max_length=2))
+pd_results = reformat_results(results)
+G = convert_to_network(pd_results)
+plot_network(G)
+```
+
+## Results
+
+As we can see from the previous relation network plots, a lot of words is linked to "car", "window" is constantly linked to "smashed" and "passenger", and there are many other similiar relationships. Align with the initial EDA of the dataset, the city of San Francisco is definetly strongly connected with Car break-ins and the stolen cars's window are offen smashed. The victims "stuff" and "bag" are constantly "stolen" from their "car". These words are often comes in pairs which is also showcase some symbol words that could use as identification label for crime reports, which could be useful in the future study.    
+
+Also suprisingly, Ghirardelli squre, a location in northen San Francisco was able to make on to the list, showing the strong relationship between this location and the car break-ins. On the otherhand demostrate the worriedsome crime rate at this place.
+
+## Conclusion
+
+After performing association rule mining on the twitter crime reports dataset, there are surely some interesting new findings like the strong correlation between certain sets of words that support and echo with previous findings in EDAs and regression anaylsis. ARM is a useful method to figure out the relationship between each variables. This tab also demonstrate that the application of the ARM is not limited to the typical transcation data but as well as NLP, Image analysis, Click streams, Bio data- binding sites, etc. In contrast with sequence mining, association rule learning typically does not consider the order of items either within a transaction or across transactions.
+
+## Reference
+
+>- Hickman, James, ANLY-501:Week-12 Association rule mining(ARM)
+>- The Medium, "Probability-Rules-Cheat-Sheet", https://medium.com/data-comet/probility-rules-cheat-sheet-e24b92a9017f
+>- Remanan, S. (2018, November 2). Association rule mining. Medium. Retrieved December 2, 2022, from https://medium.com/towards-data-science/association-rule-mining-be4122fc1793

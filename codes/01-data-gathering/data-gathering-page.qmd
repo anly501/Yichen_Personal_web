@@ -1,0 +1,34 @@
+---
+title: "Data Gathering Meothod"
+format:
+  html:
+    code-fold: true
+    theme: custom.scss
+---
+
+## Data Gathering Python API : SFPD database
+
+One of the major source for data I found it's useful is the San Francisco Crime report database, which they record all the crimes reported (by police or civlians) since 2018 and car larcenry is one of the major type of the crimes that happenes in San Francisco. In the **SFcarbreak-in Prediction** dataset, the car break-ins are filtered out from the SFPD database and group by years, also created new variables like the value of good lost in the incident to serve as target variables for the supervised learning. 
+
+Also, most importantly, the database includes API for pulling the data real time and make's it possible to specific pulling the target data and attributes, making some platforms like SF car break=in live map possible, which help people tracking the real time accident and be perpared for their neighborhood.
+
+>- Python API link from Socrata: https://dev.socrata.com/foundry/data.sfgov.org/wg3w-h783
+>- Link to GIthub API code: https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/01-data-gathering
+
+
+![](report.png)
+<center>One of the visulazion of the SFPD database</center>
+<br></br>
+
+## Data Gathering R API : Twitter
+
+One of the other data sources will be the Twitter Tweets, I am expecting to use tweets to track and anlyze the trend of car break-ins over time and also using different fields like (location) and (time of the day) to supplement the SF police data source. There are also accounts that keep tracking of car break-ins around SF, which I beleve will be a great source of information. 
+
+Data was gathered with R api package, pulling tweets related to “SF car breakin",  tweets are cleaned up and labeled manullay as crime report or not to searve as a useful dataset (Breakin_prediciton.csv).
+
+>- One of the twitter account reports on SF car breakins: https://twitter.com/SFCarBreakins
+>- Link to GIthub API code: https://github.com/anly501/anly-501-project-YichenG82619/tree/main/codes/01-data-gathering
+
+![](tweets.png)
+<center>The cleaned twitter textual data</center>
+<br></br>
